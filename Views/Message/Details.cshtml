@@ -1,0 +1,48 @@
+@model RealEstateAdmin.Models.Message
+
+@{
+    ViewData["Title"] = "Détails du message";
+}
+
+<h1>Détails du message</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.NomUtilisateur)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.NomUtilisateur)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Sujet)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Sujet)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Contenu)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Contenu)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DateCreation)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DateCreation)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Reply" asp-route-id="@Model.Id" class="btn btn-success">Répondre</a>
+    <a asp-action="Index" class="btn btn-secondary">Retour à la liste</a>
+</div>
+

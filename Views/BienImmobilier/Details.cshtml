@@ -1,0 +1,85 @@
+@model RealEstateAdmin.Models.BienImmobilier
+
+@{
+    ViewData["Title"] = "Détails du bien";
+}
+
+<div class="container">
+    <h1 class="mb-4 text-gradient">
+        <i class="bi bi-house-door"></i> Détails du bien
+    </h1>
+
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            @if (!string.IsNullOrEmpty(Model.ImageUrl))
+            {
+                <div class="card">
+                    <img src="@Model.ImageUrl" alt="@Model.Titre" class="card-img-top" style="max-height: 500px; object-fit: cover;" />
+                </div>
+            }
+            else
+            {
+                <div class="card">
+                    <div class="property-image" style="height: 400px;">
+                        <i class="bi bi-house-heart" style="font-size: 6rem; opacity: 0.5;"></i>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title mb-4">@Html.DisplayFor(model => model.Titre)</h2>
+                    
+                    <div class="property-price mb-4">
+                        @Html.DisplayFor(model => model.Prix) €
+                    </div>
+
+                    <dl class="row mb-4">
+                        @if (!string.IsNullOrEmpty(Model.Description))
+                        {
+                            <dt class="col-sm-4">Description</dt>
+                            <dd class="col-sm-8">@Html.DisplayFor(model => model.Description)</dd>
+                        }
+                        
+                        @if (!string.IsNullOrEmpty(Model.Adresse))
+                        {
+                            <dt class="col-sm-4">
+                                <i class="bi bi-geo-alt"></i> Adresse
+                            </dt>
+                            <dd class="col-sm-8">@Html.DisplayFor(model => model.Adresse)</dd>
+                        }
+                        
+                        @if (Model.Surface.HasValue)
+                        {
+                            <dt class="col-sm-4">
+                                <i class="bi bi-rulers"></i> Surface
+                            </dt>
+                            <dd class="col-sm-8">@Html.DisplayFor(model => model.Surface) m²</dd>
+                        }
+                        
+                        @if (Model.NombrePieces.HasValue)
+                        {
+                            <dt class="col-sm-4">
+                                <i class="bi bi-door-open"></i> Pièces
+                            </dt>
+                            <dd class="col-sm-8">@Html.DisplayFor(model => model.NombrePieces)</dd>
+                        }
+                    </dl>
+
+                    <div class="mt-4">
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning me-2">
+                                <i class="bi bi-pencil"></i> Modifier
+                            </a>
+                        }
+                        <a asp-action="Index" class="btn btn-secondary">
+                            <i class="bi bi-arrow-left"></i> Retour à la liste
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

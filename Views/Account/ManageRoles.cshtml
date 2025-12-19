@@ -1,0 +1,51 @@
+@model IEnumerable<RealEstateAdmin.Models.UserRoleViewModel>
+
+@{
+    ViewData["Title"] = "Gestion des rôles";
+}
+
+<h1>Gestion des rôles</h1>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Utilisateur</th>
+                    <th>Email</th>
+                    <th>Rôle actuel</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var user in Model)
+                {
+                    <tr>
+                        <td>@user.UserName</td>
+                        <td>@user.Email</td>
+                        <td>@user.CurrentRole</td>
+                        <td>
+                            <form asp-action="AssignRole" method="post" class="d-inline">
+                                <input type="hidden" name="userId" value="@user.UserId" />
+                                <select name="roleName" class="form-select form-select-sm d-inline-block" style="width: auto;">
+                                    <option value="Utilisateur" selected="@(user.CurrentRole == "Utilisateur")">Utilisateur</option>
+                                    <option value="Admin" selected="@(user.CurrentRole == "Admin")">Admin</option>
+                                </select>
+                                <button type="submit" class="btn btn-sm btn-primary">Assigner</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
