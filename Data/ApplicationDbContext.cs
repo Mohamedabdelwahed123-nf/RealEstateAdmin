@@ -27,6 +27,13 @@ namespace RealEstateAdmin.Data
                 entity.Property(e => e.Prix).IsRequired().HasPrecision(18, 2);
                 entity.Property(e => e.Adresse).HasMaxLength(500);
                 entity.Property(e => e.ImageUrl).HasMaxLength(1000);
+                entity.Property(e => e.UserId).HasMaxLength(450);
+                
+                // Relation avec ApplicationUser (optionnelle)
+                entity.HasOne(e => e.User)
+                    .WithMany()
+                    .HasForeignKey(e => e.UserId)
+                    .OnDelete(DeleteBehavior.SetNull);
             });
 
             // Configuration pour Utilisateur

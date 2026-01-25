@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RealEstateAdmin.Data;
@@ -10,16 +11,27 @@ namespace RealEstateAdmin.Controllers
     public class BienImmobilierController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public BienImmobilierController(ApplicationDbContext context)
+        public BienImmobilierController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: BienImmobilier
         public async Task<IActionResult> Index(string? titre, decimal? prixMin, decimal? prixMax, int? surfaceMin)
         {
+            var currentUser = await _userManager.GetUserAsync(User);
+            var isAdmin = User.IsInRole("Admin");
+            
             var biens = _context.Biens.AsQueryable();
+
+            // Filtrer par utilisateur si ce n'est pas un admin
+            if (!isAdmin && currentUser != null)
+            {
+                biens = biens.Where(b => b.UserId == currentUser.Id);
+            }
 
             // Filtrage par titre
             if (!string.IsNullOrEmpty(titre))
@@ -72,7 +84,6 @@ namespace RealEstateAdmin.Controllers
         }
 
         // GET: BienImmobilier/Create
-        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View();
@@ -81,11 +92,15 @@ namespace RealEstateAdmin.Controllers
         // POST: BienImmobilier/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Create([Bind("Id,Titre,Description,Prix,Adresse,Surface,NombrePieces")] BienImmobilier bienImmobilier)
+        public async Task<IActionResult> Create([Bind("Id,Titre,Description,Prix,Adresse,Surface,NombrePieces,ImageUrl")] BienImmobilier bienImmobilier)
         {
             if (ModelState.IsValid)
             {
+                var currentUser = await _userManager.GetUserAsync(User);
+                if (currentUser != null)
+                {
+                    bienImmobilier.UserId = currentUser.Id;
+                }
                 _context.Add(bienImmobilier);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -94,7 +109,6 @@ namespace RealEstateAdmin.Controllers
         }
 
         // GET: BienImmobilier/Edit/5
-        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -107,24 +121,48 @@ namespace RealEstateAdmin.Controllers
             {
                 return NotFound();
             }
+
+            // Vérifier les permissions : admin ou propriétaire
+            var currentUser = await _userManager.GetUserAsync(User);
+            var isAdmin = User.IsInRole("Admin");
+            if (!isAdmin && (currentUser == null || bienImmobilier.UserId != currentUser.Id))
+            {
+                return Forbid();
+            }
+
             return View(bienImmobilier);
         }
 
         // POST: BienImmobilier/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Titre,Description,Prix,Adresse,Surface,NombrePieces")] BienImmobilier bienImmobilier)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Titre,Description,Prix,Adresse,Surface,NombrePieces,ImageUrl")] BienImmobilier bienImmobilier)
         {
             if (id != bienImmobilier.Id)
             {
                 return NotFound();
             }
 
+            // Vérifier les permissions
+            var existingBien = await _context.Biens.FindAsync(id);
+            if (existingBien == null)
+            {
+                return NotFound();
+            }
+
+            var currentUser = await _userManager.GetUserAsync(User);
+            var isAdmin = User.IsInRole("Admin");
+            if (!isAdmin && (currentUser == null || existingBien.UserId != currentUser.Id))
+            {
+                return Forbid();
+            }
+
             if (ModelState.IsValid)
             {
                 try
                 {
+                    // Préserver le UserId existant
+                    bienImmobilier.UserId = existingBien.UserId;
                     _context.Update(bienImmobilier);
                     await _context.SaveChangesAsync();
                 }
@@ -145,7 +183,6 @@ namespace RealEstateAdmin.Controllers
         }
 
         // GET: BienImmobilier/Delete/5
-        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -160,21 +197,37 @@ namespace RealEstateAdmin.Controllers
                 return NotFound();
             }
 
+            // Vérifier les permissions
+            var currentUser = await _userManager.GetUserAsync(User);
+            var isAdmin = User.IsInRole("Admin");
+            if (!isAdmin && (currentUser == null || bienImmobilier.UserId != currentUser.Id))
+            {
+                return Forbid();
+            }
+
             return View(bienImmobilier);
         }
 
         // POST: BienImmobilier/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var bienImmobilier = await _context.Biens.FindAsync(id);
-            if (bienImmobilier != null)
+            if (bienImmobilier == null)
             {
-                _context.Biens.Remove(bienImmobilier);
+                return NotFound();
             }
 
+            // Vérifier les permissions
+            var currentUser = await _userManager.GetUserAsync(User);
+            var isAdmin = User.IsInRole("Admin");
+            if (!isAdmin && (currentUser == null || bienImmobilier.UserId != currentUser.Id))
+            {
+                return Forbid();
+            }
+
+            _context.Biens.Remove(bienImmobilier);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

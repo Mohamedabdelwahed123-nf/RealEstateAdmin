@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RealEstateAdmin.Data;
@@ -9,142 +10,60 @@ namespace RealEstateAdmin.Controllers
     [Authorize(Roles = "Admin")]
     public class UtilisateurController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public UtilisateurController(ApplicationDbContext context)
+        public UtilisateurController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
         {
-            _context = context;
+            _userManager = userManager;
+            _roleManager = roleManager;
         }
 
         // GET: Utilisateur
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Utilisateurs.ToListAsync());
+            var users = await _userManager.Users.ToListAsync();
+            var userList = new List<UserRoleViewModel>();
+
+            foreach (var user in users)
+            {
+                var roles = await _userManager.GetRolesAsync(user);
+                userList.Add(new UserRoleViewModel
+                {
+                    UserId = user.Id,
+                    UserName = user.Nom ?? user.UserName ?? "",
+                    Email = user.Email ?? "",
+                    CurrentRole = roles.FirstOrDefault() ?? "Aucun"
+                });
+            }
+
+            return View(userList);
         }
 
         // GET: Utilisateur/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(string? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var utilisateur = await _context.Utilisateurs
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (utilisateur == null)
+            var user = await _userManager.FindByIdAsync(id);
+            if (user == null)
             {
                 return NotFound();
             }
 
-            return View(utilisateur);
-        }
-
-        // GET: Utilisateur/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Utilisateur/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nom,Email,MotDePasse")] Utilisateur utilisateur)
-        {
-            if (ModelState.IsValid)
+            var roles = await _userManager.GetRolesAsync(user);
+            var userViewModel = new UserRoleViewModel
             {
-                _context.Add(utilisateur);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(utilisateur);
-        }
+                UserId = user.Id,
+                UserName = user.Nom ?? user.UserName ?? "",
+                Email = user.Email ?? "",
+                CurrentRole = roles.FirstOrDefault() ?? "Aucun"
+            };
 
-        // GET: Utilisateur/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var utilisateur = await _context.Utilisateurs.FindAsync(id);
-            if (utilisateur == null)
-            {
-                return NotFound();
-            }
-            return View(utilisateur);
-        }
-
-        // POST: Utilisateur/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nom,Email,MotDePasse")] Utilisateur utilisateur)
-        {
-            if (id != utilisateur.Id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(utilisateur);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!UtilisateurExists(utilisateur.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(utilisateur);
-        }
-
-        // GET: Utilisateur/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var utilisateur = await _context.Utilisateurs
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (utilisateur == null)
-            {
-                return NotFound();
-            }
-
-            return View(utilisateur);
-        }
-
-        // POST: Utilisateur/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var utilisateur = await _context.Utilisateurs.FindAsync(id);
-            if (utilisateur != null)
-            {
-                _context.Utilisateurs.Remove(utilisateur);
-            }
-
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-
-        private bool UtilisateurExists(int id)
-        {
-            return _context.Utilisateurs.Any(e => e.Id == id);
+            return View(userViewModel);
         }
     }
 }

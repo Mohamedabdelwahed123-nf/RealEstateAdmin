@@ -32,7 +32,7 @@
                     <h2 class="card-title mb-4">@Html.DisplayFor(model => model.Titre)</h2>
                     
                     <div class="property-price mb-4">
-                        @Html.DisplayFor(model => model.Prix) €
+                        @Model.Prix.ToString("N2") DT
                     </div>
 
                     <dl class="row mb-4">
@@ -68,12 +68,9 @@
                     </dl>
 
                     <div class="mt-4">
-                        @if (User.IsInRole("Admin"))
-                        {
-                            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning me-2">
-                                <i class="bi bi-pencil"></i> Modifier
-                            </a>
-                        }
+                        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning me-2">
+                            <i class="bi bi-pencil"></i> Modifier
+                        </a>
                         <a asp-action="Index" class="btn btn-secondary">
                             <i class="bi bi-arrow-left"></i> Retour à la liste
                         </a>

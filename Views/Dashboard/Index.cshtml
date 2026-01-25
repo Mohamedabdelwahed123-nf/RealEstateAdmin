@@ -11,33 +11,36 @@
 
     <!-- Stats Cards -->
     <div class="row g-4 mb-4">
-        <div class="col-md-4">
+        <div class="@(ViewBag.IsAdmin == true ? "col-md-4" : "col-md-12")">
             <div class="stat-card primary fade-in-up">
                 <div class="mb-3">
                     <i class="bi bi-house-heart" style="font-size: 3rem; color: #667eea;"></i>
                 </div>
                 <h2 class="stat-number">@ViewBag.TotalBiens</h2>
-                <p class="stat-label">Total des biens</p>
+                <p class="stat-label">@(ViewBag.IsAdmin == true ? "Total des biens" : "Mes biens")</p>
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="stat-card success fade-in-up" style="animation-delay: 0.1s;">
-                <div class="mb-3">
-                    <i class="bi bi-people" style="font-size: 3rem; color: #4facfe;"></i>
+        @if (ViewBag.IsAdmin == true)
+        {
+            <div class="col-md-4">
+                <div class="stat-card success fade-in-up" style="animation-delay: 0.1s;">
+                    <div class="mb-3">
+                        <i class="bi bi-people" style="font-size: 3rem; color: #4facfe;"></i>
+                    </div>
+                    <h2 class="stat-number">@ViewBag.TotalUtilisateurs</h2>
+                    <p class="stat-label">Total des utilisateurs</p>
                 </div>
-                <h2 class="stat-number">@ViewBag.TotalUtilisateurs</h2>
-                <p class="stat-label">Total des utilisateurs</p>
             </div>
-        </div>
-        <div class="col-md-4">
-            <div class="stat-card warning fade-in-up" style="animation-delay: 0.2s;">
-                <div class="mb-3">
-                    <i class="bi bi-envelope" style="font-size: 3rem; color: #f5576c;"></i>
+            <div class="col-md-4">
+                <div class="stat-card warning fade-in-up" style="animation-delay: 0.2s;">
+                    <div class="mb-3">
+                        <i class="bi bi-envelope" style="font-size: 3rem; color: #f5576c;"></i>
+                    </div>
+                    <h2 class="stat-number">@ViewBag.TotalMessages</h2>
+                    <p class="stat-label">Total des messages</p>
                 </div>
-                <h2 class="stat-number">@ViewBag.TotalMessages</h2>
-                <p class="stat-label">Total des messages</p>
             </div>
-        </div>
+        }
     </div>
 
     <!-- Chart Card -->
@@ -67,7 +70,7 @@
                             <i class="bi bi-plus-circle"></i> Ajouter un bien immobilier
                         </a>
                         <a asp-controller="BienImmobilier" asp-action="Index" class="btn btn-outline-primary">
-                            <i class="bi bi-list-ul"></i> Voir tous les biens
+                            <i class="bi bi-list-ul"></i> @(ViewBag.IsAdmin == true ? "Voir tous les biens" : "Voir mes biens")
                         </a>
                         @if (User.IsInRole("Admin"))
                         {
@@ -94,7 +97,14 @@
                         <strong>Bienvenue sur votre tableau de bord !</strong>
                     </p>
                     <p class="text-muted mb-0">
-                        Gérez efficacement vos biens immobiliers, suivez vos statistiques et restez organisé avec notre plateforme moderne.
+                        @if (ViewBag.IsAdmin == true)
+                        {
+                            <text>Gérez efficacement tous les biens immobiliers, suivez les statistiques globales et restez organisé avec notre plateforme moderne.</text>
+                        }
+                        else
+                        {
+                            <text>Gérez efficacement vos biens immobiliers personnels, suivez vos statistiques et restez organisé avec notre plateforme moderne.</text>
+                        }
                     </p>
                 </div>
             </div>

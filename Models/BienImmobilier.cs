@@ -1,10 +1,17 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RealEstateAdmin.Models
 {
     public class BienImmobilier
     {
         public int Id { get; set; }
+        
+        [Display(Name = "Propriétaire")]
+        public string? UserId { get; set; }
+        
+        [ForeignKey("UserId")]
+        public ApplicationUser? User { get; set; }
 
         [Required(ErrorMessage = "Le titre est obligatoire")]
         [Display(Name = "Titre")]
@@ -16,8 +23,7 @@ namespace RealEstateAdmin.Models
         public string? Description { get; set; }
 
         [Required(ErrorMessage = "Le prix est obligatoire")]
-        [Display(Name = "Prix")]
-        [DataType(DataType.Currency)]
+        [Display(Name = "Prix (DT)")]
         [Range(0, double.MaxValue, ErrorMessage = "Le prix doit être positif")]
         public decimal Prix { get; set; }
 
