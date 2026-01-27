@@ -30,10 +30,12 @@ namespace RealEstateAdmin.Data
                 entity.Property(e => e.UserId).HasMaxLength(450);
                 
                 // Relation avec ApplicationUser (optionnelle)
+                // La relation est configurée sans contrainte stricte car ApplicationUser est dans un autre DbContext
                 entity.HasOne(e => e.User)
                     .WithMany()
                     .HasForeignKey(e => e.UserId)
-                    .OnDelete(DeleteBehavior.SetNull);
+                    .OnDelete(DeleteBehavior.SetNull)
+                    .IsRequired(false);
             });
 
             // Configuration pour Utilisateur

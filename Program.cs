@@ -83,6 +83,9 @@ using (var scope = app.Services.CreateScope())
     // Seeding des biens immobiliers
     if (!dbContext.Biens.Any())
     {
+        // Récupérer l'ID de l'admin pour assigner les biens (réutiliser la variable existante)
+        string? adminUserId = adminUser?.Id;
+        
         var biens = new List<BienImmobilier>
         {
             new BienImmobilier
@@ -90,84 +93,134 @@ using (var scope = app.Services.CreateScope())
                 Titre = "Villa moderne avec piscine",
                 Description = "Magnifique villa contemporaine de 250m² avec piscine privée, jardin paysager et vue panoramique. Située dans un quartier résidentiel calme, cette propriété offre un espace de vie exceptionnel avec 5 chambres, 3 salles de bain, cuisine équipée et salon spacieux.",
                 Prix = 850000,
-                Adresse = "123 Avenue des Palmiers, Nice",
+                Adresse = "Avenue Habib Bourguiba, La Marsa, Tunis",
                 Surface = 250,
                 NombrePieces = 5,
-                ImageUrl = "https://images.unsplash.com/photo-1613977257363-707ba9348227?w=800&h=600&fit=crop"
+                ImageUrl = "https://images.unsplash.com/photo-1613977257363-707ba9348227?w=800&h=600&fit=crop",
+                UserId = adminUserId
             },
             new BienImmobilier
             {
                 Titre = "Appartement luxueux centre-ville",
                 Description = "Superbe appartement de standing au cœur de la ville, entièrement rénové. Grandes baies vitrées, balcon avec vue sur la mer, parking privé. Idéal pour investissement locatif ou résidence principale.",
                 Prix = 420000,
-                Adresse = "45 Rue de la République, Marseille",
+                Adresse = "Avenue de la République, Sfax",
                 Surface = 95,
                 NombrePieces = 3,
-                ImageUrl = "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800&h=600&fit=crop"
+                ImageUrl = "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800&h=600&fit=crop",
+                UserId = adminUserId
             },
             new BienImmobilier
             {
                 Titre = "Maison de campagne avec terrain",
                 Description = "Charmante maison de campagne sur terrain de 2000m². Maison rénovée avec charme, 4 chambres, 2 salles de bain, grande cuisine, salon avec cheminée. Parfait pour une famille recherchant le calme et l'espace.",
                 Prix = 320000,
-                Adresse = "78 Route des Vignes, Provence",
+                Adresse = "Route de Zaghouan, Bizerte",
                 Surface = 180,
                 NombrePieces = 4,
-                ImageUrl = "https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=800&h=600&fit=crop"
+                ImageUrl = "https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=800&h=600&fit=crop",
+                UserId = adminUserId
             },
             new BienImmobilier
             {
                 Titre = "Studio moderne proche plage",
                 Description = "Studio récent et lumineux à 200m de la plage. Idéal pour investissement locatif saisonnier ou résidence secondaire. Meublé, climatisé, avec balcon et parking.",
                 Prix = 185000,
-                Adresse = "12 Boulevard de la Mer, Cannes",
+                Adresse = "Corniche de Sousse, Sousse",
                 Surface = 35,
                 NombrePieces = 1,
-                ImageUrl = "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800&h=600&fit=crop"
+                ImageUrl = "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800&h=600&fit=crop",
+                UserId = adminUserId
             },
             new BienImmobilier
             {
                 Titre = "Penthouse avec terrasse panoramique",
                 Description = "Exceptionnel penthouse au dernier étage avec terrasse de 80m² offrant une vue à 360° sur la ville et la mer. 3 chambres, 2 salles de bain, cuisine ouverte design, salon double hauteur. Parking et cave inclus.",
                 Prix = 1200000,
-                Adresse = "200 Avenue de la Promenade, Monaco",
+                Adresse = "Avenue Habib Bourguiba, Hammamet",
                 Surface = 180,
                 NombrePieces = 3,
-                ImageUrl = "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&h=600&fit=crop"
+                ImageUrl = "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&h=600&fit=crop",
+                UserId = adminUserId
             },
             new BienImmobilier
             {
                 Titre = "Duplex rénové avec jardin",
                 Description = "Magnifique duplex entièrement rénové avec jardin privatif. Rez-de-chaussée avec cuisine ouverte et salon, étage avec 3 chambres et 2 salles de bain. Proche commerces et transports.",
                 Prix = 550000,
-                Adresse = "89 Rue du Commerce, Lyon",
+                Adresse = "Rue de la Kasbah, Tunis",
                 Surface = 140,
                 NombrePieces = 3,
-                ImageUrl = "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=600&fit=crop"
+                ImageUrl = "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=600&fit=crop",
+                UserId = adminUserId
             },
             new BienImmobilier
             {
                 Titre = "Appartement T3 avec balcon",
                 Description = "Bel appartement de 75m² avec balcon, dans immeuble récent. 2 chambres, 1 salle de bain, cuisine équipée, salon lumineux. Proche métro et commerces. Idéal premier achat ou investissement.",
                 Prix = 280000,
-                Adresse = "156 Avenue Victor Hugo, Paris",
+                Adresse = "Avenue Mohamed V, Monastir",
                 Surface = 75,
                 NombrePieces = 2,
-                ImageUrl = "https://images.unsplash.com/photo-1600607687644-c7171b42498f?w=800&h=600&fit=crop"
+                ImageUrl = "https://images.unsplash.com/photo-1600607687644-c7171b42498f?w=800&h=600&fit=crop",
+                UserId = adminUserId
             },
             new BienImmobilier
             {
                 Titre = "Maison familiale avec garage",
                 Description = "Spacieuse maison de 200m² sur terrain de 500m². 5 chambres, 3 salles de bain, cuisine aménagée, salon, bureau, garage double. Quartier résidentiel calme, proche écoles.",
                 Prix = 650000,
-                Adresse = "34 Impasse des Roses, Bordeaux",
+                Adresse = "Cité Ennasr, Ariana, Tunis",
                 Surface = 200,
                 NombrePieces = 5,
-                ImageUrl = "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&h=600&fit=crop"
+                ImageUrl = "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&h=600&fit=crop",
+                UserId = adminUserId
             }
         };
         
         dbContext.Biens.AddRange(biens);
+        await dbContext.SaveChangesAsync();
+    }
+    
+    // Mise à jour des adresses françaises vers tunisiennes pour les biens existants
+    var biensAvecAdressesFrancaises = await dbContext.Biens
+        .Where(b => b.Adresse != null && (
+            b.Adresse.Contains("Nice") || 
+            b.Adresse.Contains("Marseille") || 
+            b.Adresse.Contains("Provence") || 
+            b.Adresse.Contains("Cannes") || 
+            b.Adresse.Contains("Monaco") || 
+            b.Adresse.Contains("Lyon") || 
+            b.Adresse.Contains("Paris") || 
+            b.Adresse.Contains("Bordeaux")))
+        .ToListAsync();
+    
+    if (biensAvecAdressesFrancaises.Any())
+    {
+        var adressesTunisiennes = new Dictionary<string, string>
+        {
+            { "Nice", "Avenue Habib Bourguiba, La Marsa, Tunis" },
+            { "Marseille", "Avenue de la République, Sfax" },
+            { "Provence", "Route de Zaghouan, Bizerte" },
+            { "Cannes", "Corniche de Sousse, Sousse" },
+            { "Monaco", "Avenue Habib Bourguiba, Hammamet" },
+            { "Lyon", "Rue de la Kasbah, Tunis" },
+            { "Paris", "Avenue Mohamed V, Monastir" },
+            { "Bordeaux", "Cité Ennasr, Ariana, Tunis" }
+        };
+        
+        foreach (var bien in biensAvecAdressesFrancaises)
+        {
+            foreach (var ville in adressesTunisiennes.Keys)
+            {
+                if (bien.Adresse != null && bien.Adresse.Contains(ville))
+                {
+                    bien.Adresse = adressesTunisiennes[ville];
+                    break;
+                }
+            }
+        }
+        
         await dbContext.SaveChangesAsync();
     }
 }

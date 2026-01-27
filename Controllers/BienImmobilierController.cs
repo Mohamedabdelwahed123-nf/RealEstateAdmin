@@ -97,10 +97,21 @@ namespace RealEstateAdmin.Controllers
             if (ModelState.IsValid)
             {
                 var currentUser = await _userManager.GetUserAsync(User);
-                if (currentUser != null)
+                if (currentUser == null)
                 {
-                    bienImmobilier.UserId = currentUser.Id;
+                    ModelState.AddModelError(string.Empty, "Vous devez être connecté pour créer un bien immobilier.");
+                    return View(bienImmobilier);
                 }
+                
+                // Vérifier que l'utilisateur existe bien dans la base de données
+                var userExists = await _userManager.FindByIdAsync(currentUser.Id);
+                if (userExists == null)
+                {
+                    ModelState.AddModelError(string.Empty, "Erreur: Utilisateur introuvable.");
+                    return View(bienImmobilier);
+                }
+                
+                bienImmobilier.UserId = currentUser.Id;
                 _context.Add(bienImmobilier);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

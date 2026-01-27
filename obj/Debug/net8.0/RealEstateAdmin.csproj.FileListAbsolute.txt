@@ -111,3 +111,4 @@ c:\Users\GAMING ASUS\RealEstateAdmin\bin\Debug\net8.0\Microsoft.AspNetCore.Crypt
 c:\Users\GAMING ASUS\RealEstateAdmin\bin\Debug\net8.0\Microsoft.Extensions.FileProviders.Embedded.dll
 c:\Users\GAMING ASUS\RealEstateAdmin\bin\Debug\net8.0\Microsoft.Extensions.Identity.Core.dll
 c:\Users\GAMING ASUS\RealEstateAdmin\bin\Debug\net8.0\Microsoft.Extensions.Identity.Stores.dll
+C:\Users\GAMING ASUS\RealEstateAdmin\obj\Debug\net8.0\RealEstateAdmin.sourcelink.json

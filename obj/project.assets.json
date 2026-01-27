@@ -2717,11 +2717,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Users\\GAMING ASUS\\RealEstateAdmin\\RealEstateAdmin.csproj",
+      "projectUniqueName": "C:\\Users\\GAMING ASUS\\RealEstateAdmin\\RealEstateAdmin.csproj",
       "projectName": "RealEstateAdmin",
-      "projectPath": "c:\\Users\\GAMING ASUS\\RealEstateAdmin\\RealEstateAdmin.csproj",
+      "projectPath": "C:\\Users\\GAMING ASUS\\RealEstateAdmin\\RealEstateAdmin.csproj",
       "packagesPath": "C:\\Users\\GAMING ASUS\\.nuget\\packages\\",
-      "outputPath": "c:\\Users\\GAMING ASUS\\RealEstateAdmin\\obj\\",
+      "outputPath": "C:\\Users\\GAMING ASUS\\RealEstateAdmin\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\GAMING ASUS\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -2801,7 +2801,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.416/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.417/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
