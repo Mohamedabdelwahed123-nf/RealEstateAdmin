@@ -9,51 +9,103 @@
         </h1>
     </div>
 
-    <!-- Stats Cards -->
-    <div class="row g-4 mb-4">
-        <div class="@(ViewBag.IsAdmin == true ? "col-md-4" : "col-md-12")">
-            <div class="stat-card primary fade-in-up">
-                <div class="mb-3">
-                    <i class="bi bi-house-heart" style="font-size: 3rem; color: #667eea;"></i>
+    <!-- KPIs -->
+    <div class="mb-4">
+        <h2 class="mb-3">Statistiques essentielles</h2>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="stat-card primary">
+                    <div class="mb-3">
+                        <i class="bi bi-house-heart" style="font-size: 2.5rem; color: #d6a547;"></i>
+                    </div>
+                    <h2 class="stat-number">@ViewBag.TotalBiens</h2>
+                    <p class="stat-label">@(ViewBag.IsAdmin == true ? "Total des biens" : "Mes biens")</p>
                 </div>
-                <h2 class="stat-number">@ViewBag.TotalBiens</h2>
-                <p class="stat-label">@(ViewBag.IsAdmin == true ? "Total des biens" : "Mes biens")</p>
+            </div>
+            <div class="col-md-4">
+                <div class="stat-card success">
+                    <div class="mb-3">
+                        <i class="bi bi-cash-coin" style="font-size: 2.5rem; color: #1f8f7a;"></i>
+                    </div>
+                    <h2 class="stat-number">@ViewBag.AvgPrice</h2>
+                    <p class="stat-label">Prix moyen</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="stat-card warning">
+                    <div class="mb-3">
+                        <i class="bi bi-aspect-ratio" style="font-size: 2.5rem; color: #c0563a;"></i>
+                    </div>
+                    <h2 class="stat-number">@ViewBag.AvgPricePerM2</h2>
+                    <p class="stat-label">Prix moyen / m²</p>
+                </div>
             </div>
         </div>
-        @if (ViewBag.IsAdmin == true)
-        {
-            <div class="col-md-4">
-                <div class="stat-card success fade-in-up" style="animation-delay: 0.1s;">
-                    <div class="mb-3">
-                        <i class="bi bi-people" style="font-size: 3rem; color: #4facfe;"></i>
-                    </div>
-                    <h2 class="stat-number">@ViewBag.TotalUtilisateurs</h2>
-                    <p class="stat-label">Total des utilisateurs</p>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="stat-card warning fade-in-up" style="animation-delay: 0.2s;">
-                    <div class="mb-3">
-                        <i class="bi bi-envelope" style="font-size: 3rem; color: #f5576c;"></i>
-                    </div>
-                    <h2 class="stat-number">@ViewBag.TotalMessages</h2>
-                    <p class="stat-label">Total des messages</p>
-                </div>
-            </div>
-        }
     </div>
 
-    <!-- Chart Card -->
+    <div class="row g-4 mb-4">
+        <div class="col-lg-6">
+            <div class="chart-shell h-100">
+                <div class="chart-header">
+                    <h5 class="mb-0">
+                        <i class="bi bi-bar-chart"></i> Répartition des biens par gamme de prix
+                    </h5>
+                    <span class="chart-note">Tranches dynamiques selon vos données</span>
+                </div>
+                <div class="card-body">
+                    <canvas id="prixChart" width="400" height="200"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="chart-shell h-100">
+                <div class="chart-header">
+                    <h5 class="mb-0">
+                        <i class="bi bi-geo-alt"></i> Top zones (nombre de biens)
+                    </h5>
+                    <span class="chart-note">Zones détectées : @ViewBag.ZoneCount</span>
+                </div>
+                <div class="card-body">
+                    <canvas id="zoneChart" width="400" height="200"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="mb-3">Détails par zone</h2>
     <div class="card mb-4">
         <div class="card-header">
             <h5 class="mb-0">
-                <i class="bi bi-bar-chart"></i> Répartition des biens par prix
+                <i class="bi bi-list-ul"></i> Statistiques par zone
             </h5>
         </div>
-        <div class="card-body">
-            <canvas id="prixChart" width="400" height="200"></canvas>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table mb-0">
+                    <thead>
+                        <tr>
+                            <th>Zone</th>
+                            <th>Biens</th>
+                            <th>Prix moyen (DT)</th>
+                            <th>Prix/m² (DT)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var zone in (IEnumerable<dynamic>)ViewBag.ZoneStats)
+                        {
+                            <tr>
+                                <td>@zone.Zone</td>
+                                <td>@zone.Count</td>
+                                <td>@zone.AvgPrice.ToString("N0")</td>
+                                <td>@(((double)zone.AvgPricePerM2).ToString("N0"))</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
+
 
     <!-- Quick Actions -->
     <div class="row g-4 mb-4">
@@ -119,6 +171,10 @@
         
         const labels = biensParPrix.map(item => item.categorie || item.Categorie);
         const data = biensParPrix.map(item => item.count || item.Count);
+
+        const zoneStats = @Html.Raw(Json.Serialize(ViewBag.ZoneStats));
+        const zoneLabels = zoneStats.map(z => z.zone || z.Zone);
+        const zoneCounts = zoneStats.map(z => z.count || z.Count);
         
         new Chart(ctx, {
             type: 'bar',
@@ -128,26 +184,26 @@
                     label: 'Nombre de biens',
                     data: data,
                     backgroundColor: [
-                        'rgba(102, 126, 234, 0.8)',
-                        'rgba(79, 172, 254, 0.8)',
-                        'rgba(245, 87, 108, 0.8)',
-                        'rgba(255, 159, 64, 0.8)',
-                        'rgba(153, 102, 255, 0.8)'
+                        'rgba(214, 165, 71, 0.75)',
+                        'rgba(31, 143, 122, 0.75)',
+                        'rgba(192, 86, 58, 0.75)',
+                        'rgba(23, 49, 58, 0.75)',
+                        'rgba(242, 205, 122, 0.75)'
                     ],
                     borderColor: [
-                        'rgba(102, 126, 234, 1)',
-                        'rgba(79, 172, 254, 1)',
-                        'rgba(245, 87, 108, 1)',
-                        'rgba(255, 159, 64, 1)',
-                        'rgba(153, 102, 255, 1)'
+                        'rgba(214, 165, 71, 1)',
+                        'rgba(31, 143, 122, 1)',
+                        'rgba(192, 86, 58, 1)',
+                        'rgba(23, 49, 58, 1)',
+                        'rgba(242, 205, 122, 1)'
                     ],
                     borderWidth: 2,
-                    borderRadius: 8
+                    borderRadius: 10
                 }]
             },
             options: {
                 responsive: true,
-                maintainAspectRatio: true,
+                maintainAspectRatio: false,
                 plugins: {
                     legend: {
                         display: false
@@ -160,7 +216,7 @@
                             stepSize: 1
                         },
                         grid: {
-                            color: 'rgba(0, 0, 0, 0.05)'
+                            color: 'rgba(12, 27, 34, 0.08)'
                         }
                     },
                     x: {
@@ -171,5 +227,47 @@
                 }
             }
         });
+
+        const zoneCtx = document.getElementById('zoneChart').getContext('2d');
+        new Chart(zoneCtx, {
+            type: 'bar',
+            data: {
+                labels: zoneLabels,
+                datasets: [{
+                    label: 'Nombre de biens',
+                    data: zoneCounts,
+                    backgroundColor: 'rgba(31, 143, 122, 0.7)',
+                    borderColor: 'rgba(31, 143, 122, 1)',
+                    borderWidth: 2,
+                    borderRadius: 10
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            stepSize: 1
+                        },
+                        grid: {
+                            color: 'rgba(12, 27, 34, 0.08)'
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        }
+                    }
+                }
+            }
+        });
+
     </script>
 }

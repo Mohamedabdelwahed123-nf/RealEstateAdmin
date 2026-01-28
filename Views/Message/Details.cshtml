@@ -60,6 +60,24 @@
                         <dd class="mb-0">
                             @Model.DateCreation.ToString("dd MMMM yyyy à HH:mm")
                         </dd>
+
+                        <dt class="mb-2 mt-3">
+                            <i class="bi bi-flag"></i> Statut
+                        </dt>
+                        <dd class="mb-0">
+                            @if (Model.Statut == "Traité")
+                            {
+                                <span class="badge bg-success">Traité</span>
+                                @if (Model.DateTraitement.HasValue)
+                                {
+                                    <small class="text-muted d-block mt-1">Le @Model.DateTraitement.Value.ToString("dd/MM/yyyy HH:mm")</small>
+                                }
+                            }
+                            else
+                            {
+                                <span class="badge bg-warning text-dark">Nouveau</span>
+                            }
+                        </dd>
                     </dl>
                 </div>
             </div>

@@ -26,6 +26,18 @@ namespace RealEstateAdmin.Models
         [Display(Name = "Date de création")]
         [DataType(DataType.DateTime)]
         public DateTime DateCreation { get; set; } = DateTime.Now;
+
+        [Display(Name = "Statut")]
+        [StringLength(50)]
+        public string Statut { get; set; } = "Nouveau";
+
+        [Display(Name = "Traité par")]
+        [StringLength(450)]
+        public string? TraiteParId { get; set; }
+
+        [Display(Name = "Date de traitement")]
+        [DataType(DataType.DateTime)]
+        public DateTime? DateTraitement { get; set; }
     }
 }
 

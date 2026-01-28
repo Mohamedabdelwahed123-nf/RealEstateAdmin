@@ -97,7 +97,9 @@ using (var scope = app.Services.CreateScope())
                 Surface = 250,
                 NombrePieces = 5,
                 ImageUrl = "https://images.unsplash.com/photo-1613977257363-707ba9348227?w=800&h=600&fit=crop",
-                UserId = adminUserId
+                UserId = adminUserId,
+                PublicationStatus = "Publié",
+                IsPublished = true
             },
             new BienImmobilier
             {
@@ -108,7 +110,9 @@ using (var scope = app.Services.CreateScope())
                 Surface = 95,
                 NombrePieces = 3,
                 ImageUrl = "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800&h=600&fit=crop",
-                UserId = adminUserId
+                UserId = adminUserId,
+                PublicationStatus = "Publié",
+                IsPublished = true
             },
             new BienImmobilier
             {
@@ -119,7 +123,9 @@ using (var scope = app.Services.CreateScope())
                 Surface = 180,
                 NombrePieces = 4,
                 ImageUrl = "https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=800&h=600&fit=crop",
-                UserId = adminUserId
+                UserId = adminUserId,
+                PublicationStatus = "Publié",
+                IsPublished = true
             },
             new BienImmobilier
             {
@@ -130,7 +136,9 @@ using (var scope = app.Services.CreateScope())
                 Surface = 35,
                 NombrePieces = 1,
                 ImageUrl = "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800&h=600&fit=crop",
-                UserId = adminUserId
+                UserId = adminUserId,
+                PublicationStatus = "Publié",
+                IsPublished = true
             },
             new BienImmobilier
             {
@@ -141,7 +149,9 @@ using (var scope = app.Services.CreateScope())
                 Surface = 180,
                 NombrePieces = 3,
                 ImageUrl = "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&h=600&fit=crop",
-                UserId = adminUserId
+                UserId = adminUserId,
+                PublicationStatus = "Publié",
+                IsPublished = true
             },
             new BienImmobilier
             {
@@ -152,7 +162,9 @@ using (var scope = app.Services.CreateScope())
                 Surface = 140,
                 NombrePieces = 3,
                 ImageUrl = "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=600&fit=crop",
-                UserId = adminUserId
+                UserId = adminUserId,
+                PublicationStatus = "Publié",
+                IsPublished = true
             },
             new BienImmobilier
             {
@@ -163,7 +175,9 @@ using (var scope = app.Services.CreateScope())
                 Surface = 75,
                 NombrePieces = 2,
                 ImageUrl = "https://images.unsplash.com/photo-1600607687644-c7171b42498f?w=800&h=600&fit=crop",
-                UserId = adminUserId
+                UserId = adminUserId,
+                PublicationStatus = "Publié",
+                IsPublished = true
             },
             new BienImmobilier
             {
@@ -174,7 +188,9 @@ using (var scope = app.Services.CreateScope())
                 Surface = 200,
                 NombrePieces = 5,
                 ImageUrl = "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&h=600&fit=crop",
-                UserId = adminUserId
+                UserId = adminUserId,
+                PublicationStatus = "Publié",
+                IsPublished = true
             }
         };
         

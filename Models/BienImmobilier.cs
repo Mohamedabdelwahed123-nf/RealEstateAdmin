@@ -44,9 +44,22 @@ namespace RealEstateAdmin.Models
         [StringLength(1000, ErrorMessage = "L'URL ne peut pas dépasser 1000 caractères")]
         public string? ImageUrl { get; set; }
 
-        [Required(ErrorMessage = "Le type de transaction est obligatoire")]
-        [Display(Name = "Type de transaction")]
-        public string TypeTransaction { get; set; } = "A Vendre"; // "A Vendre" ou "A Louer"
+        [Required(ErrorMessage = "Le statut du bien est obligatoire")]
+        [Display(Name = "Statut du bien")]
+        public string TypeTransaction { get; set; } = "A Vendre"; // "A Vendre" ou "Acheté"
+
+        [Display(Name = "Publié")]
+        public bool IsPublished { get; set; } = true;
+
+        [Display(Name = "Statut de publication")]
+        [StringLength(50)]
+        public string PublicationStatus { get; set; } = "En attente"; // En attente / Publié / Refusé
+
+        [NotMapped]
+        [Display(Name = "Images (URLs multiples)")]
+        public string? ImageUrlsInput { get; set; }
+
+        public ICollection<BienImage> Images { get; set; } = new List<BienImage>();
     }
 }
 

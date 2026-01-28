@@ -18,15 +18,14 @@ namespace RealEstateAdmin.Controllers
         }
 
         // GET: Shop
-        public async Task<IActionResult> Index(string? typeTransaction, string? titre, decimal? prixMin, decimal? prixMax, string? adresse)
+        public async Task<IActionResult> Index(string? titre, decimal? prixMin, decimal? prixMax, string? adresse)
         {
-            var biens = _context.Biens.Include(b => b.User).AsQueryable();
-
-            // Filter by transaction type
-            if (!string.IsNullOrEmpty(typeTransaction))
-            {
-                biens = biens.Where(b => b.TypeTransaction == typeTransaction);
-            }
+            var biens = _context.Biens
+                .Include(b => b.User)
+                .Include(b => b.Images)
+                .Where(b => b.PublicationStatus == "Publié")
+                .Where(b => string.IsNullOrEmpty(b.TypeTransaction) || b.TypeTransaction == "A Vendre" || b.TypeTransaction == "A Louer")
+                .AsQueryable();
 
             // Filter by title
             if (!string.IsNullOrEmpty(titre))
@@ -52,7 +51,6 @@ namespace RealEstateAdmin.Controllers
                 biens = biens.Where(b => b.Prix <= prixMax.Value);
             }
 
-            ViewBag.TypeTransaction = typeTransaction;
             ViewBag.Titre = titre;
             ViewBag.Adresse = adresse;
             ViewBag.PrixMin = prixMin;
@@ -84,10 +82,34 @@ namespace RealEstateAdmin.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
+            if (bien.PublicationStatus != "Publié")
+            {
+                TempData["Error"] = "Ce bien n'est pas publié.";
+                return RedirectToAction(nameof(Index));
+            }
+
+            if (bien.TypeTransaction == "Acheté")
+            {
+                TempData["Error"] = "Ce bien n'est plus en vente.";
+                return RedirectToAction(nameof(Index));
+            }
+
             // Transfer ownership
             bien.UserId = currentUser.Id;
+            bien.TypeTransaction = "Acheté";
             
             _context.Update(bien);
+            await _context.SaveChangesAsync();
+
+            _context.AuditLogs.Add(new AuditLog
+            {
+                UserId = currentUser.Id,
+                Action = "Buy",
+                EntityType = "BienImmobilier",
+                EntityId = bien.Id,
+                Details = $"Achat du bien '{bien.Titre}'",
+                CreatedAt = DateTime.Now
+            });
             await _context.SaveChangesAsync();
 
             TempData["Success"] = "Félicitations ! Vous avez acheté ce bien. Il est maintenant dans votre liste 'Mes Biens'.";

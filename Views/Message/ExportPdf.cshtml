@@ -1,0 +1,52 @@
+@model IEnumerable<RealEstateAdmin.Models.Message>
+
+@{
+    Layout = null;
+    ViewData["Title"] = "Export Messages";
+}
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <title>Messages</title>
+    <style>
+        body { font-family: Arial, sans-serif; font-size: 12px; color: #111; }
+        h1 { font-size: 18px; margin-bottom: 12px; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { border: 1px solid #ccc; padding: 6px; text-align: left; }
+        th { background: #f0f0f0; }
+    </style>
+</head>
+<body>
+    <h1>Messages</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nom</th>
+                <th>Email</th>
+                <th>Sujet</th>
+                <th>Statut</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var m in Model)
+            {
+                <tr>
+                    <td>@m.Id</td>
+                    <td>@m.NomUtilisateur</td>
+                    <td>@m.Email</td>
+                    <td>@m.Sujet</td>
+                    <td>@m.Statut</td>
+                    <td>@m.DateCreation.ToString("dd/MM/yyyy HH:mm")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <script>
+        window.onload = () => window.print();
+    </script>
+</body>
+</html>

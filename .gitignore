@@ -173,3 +173,5 @@ FodyWeavers.xsd
 .idea/
 *.sln.iml
 
+# Solution files
+*.sln

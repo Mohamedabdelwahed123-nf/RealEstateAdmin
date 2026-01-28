@@ -68,15 +68,48 @@
                     </dl>
 
                     <div class="mt-4">
-                        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning me-2">
-                            <i class="bi bi-pencil"></i> Modifier
-                        </a>
-                        <a asp-action="Index" class="btn btn-secondary">
-                            <i class="bi bi-arrow-left"></i> Retour à la liste
-                        </a>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning me-2">
+                                <i class="bi bi-pencil"></i> Modifier
+                            </a>
+                        }
+                        @if (User.Identity?.IsAuthenticated == true)
+                        {
+                            <a asp-action="Index" class="btn btn-secondary">
+                                <i class="bi bi-arrow-left"></i> Retour à la liste
+                            </a>
+                        }
+                        else
+                        {
+                            <a asp-controller="Shop" asp-action="Index" class="btn btn-secondary">
+                                <i class="bi bi-arrow-left"></i> Retour au shop
+                            </a>
+                        }
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    @if (Model.Images != null && Model.Images.Any())
+    {
+        <div class="card mt-4">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="bi bi-images"></i> Galerie
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row g-3">
+                    @foreach (var img in Model.Images)
+                    {
+                        <div class="col-md-4">
+                            <img src="@img.Url" alt="Image bien" class="img-fluid rounded" />
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    }
 </div>

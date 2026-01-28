@@ -11,8 +11,10 @@ namespace RealEstateAdmin.Data
         }
 
         public DbSet<BienImmobilier> Biens { get; set; }
+        public DbSet<BienImage> BienImages { get; set; }
         public DbSet<Utilisateur> Utilisateurs { get; set; }
         public DbSet<Message> Messages { get; set; }
+        public DbSet<AuditLog> AuditLogs { get; set; }
         // Add Users DbSet to allow FK relationships
         public DbSet<ApplicationUser> Users { get; set; }
 
@@ -36,6 +38,8 @@ namespace RealEstateAdmin.Data
                 entity.Property(e => e.Adresse).HasMaxLength(500);
                 entity.Property(e => e.ImageUrl).HasMaxLength(1000);
                 entity.Property(e => e.UserId).HasMaxLength(450);
+                entity.Property(e => e.IsPublished).HasDefaultValue(true);
+                entity.Property(e => e.PublicationStatus).HasMaxLength(50).HasDefaultValue("En attente");
                 
                 // Relation avec ApplicationUser
                 entity.HasOne(e => e.User)
@@ -43,6 +47,16 @@ namespace RealEstateAdmin.Data
                     .HasForeignKey(e => e.UserId)
                     .OnDelete(DeleteBehavior.SetNull)
                     .IsRequired(false);
+            });
+
+            modelBuilder.Entity<BienImage>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.Url).HasMaxLength(1000);
+                entity.HasOne(e => e.BienImmobilier)
+                    .WithMany(b => b.Images)
+                    .HasForeignKey(e => e.BienImmobilierId)
+                    .OnDelete(DeleteBehavior.Cascade);
             });
 
             // Configuration pour Utilisateur
@@ -64,6 +78,19 @@ namespace RealEstateAdmin.Data
                 entity.Property(e => e.Sujet).HasMaxLength(200);
                 entity.Property(e => e.Contenu).HasMaxLength(5000);
                 entity.Property(e => e.DateCreation).HasDefaultValueSql("CURRENT_TIMESTAMP(6)");
+                entity.Property(e => e.Statut).HasMaxLength(50).HasDefaultValue("Nouveau");
+                entity.Property(e => e.TraiteParId).HasMaxLength(450);
+            });
+
+            // Configuration pour AuditLog
+            modelBuilder.Entity<AuditLog>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.UserId).HasMaxLength(450);
+                entity.Property(e => e.Action).HasMaxLength(200);
+                entity.Property(e => e.EntityType).HasMaxLength(200);
+                entity.Property(e => e.Details).HasMaxLength(2000);
+                entity.Property(e => e.CreatedAt).HasDefaultValueSql("CURRENT_TIMESTAMP(6)");
             });
         }
     }

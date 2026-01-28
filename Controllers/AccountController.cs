@@ -58,15 +58,16 @@ namespace RealEstateAdmin.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult Register()
+        public IActionResult Register(string? returnUrl = null)
         {
+            ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
 
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register(RegisterViewModel model)
+        public async Task<IActionResult> Register(RegisterViewModel model, string? returnUrl = null)
         {
             if (ModelState.IsValid)
             {
@@ -85,6 +86,10 @@ namespace RealEstateAdmin.Controllers
                     await _userManager.AddToRoleAsync(user, "Utilisateur");
 
                     await _signInManager.SignInAsync(user, isPersistent: false);
+                    if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+                    {
+                        return Redirect(returnUrl);
+                    }
                     return RedirectToAction("Index", "Dashboard");
                 }
 

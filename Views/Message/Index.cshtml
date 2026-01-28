@@ -9,7 +9,15 @@
         <h1 class="text-gradient">
             <i class="bi bi-envelope"></i> Gestion des messages
         </h1>
-        <span class="badge bg-primary fs-6">@Model.Count() message(s)</span>
+        <div class="d-flex gap-2 align-items-center">
+            <a asp-action="ExportCsv" class="btn btn-sm btn-outline-primary">
+                <i class="bi bi-filetype-csv"></i> CSV
+            </a>
+            <a asp-action="ExportPdf" class="btn btn-sm btn-outline-primary">
+                <i class="bi bi-file-earmark-pdf"></i> PDF
+            </a>
+            <span class="badge bg-primary fs-6">@Model.Count() message(s)</span>
+        </div>
     </div>
 
     @if (TempData["SuccessMessage"] != null)
@@ -37,6 +45,9 @@
                                 <i class="bi bi-chat-text"></i> Sujet
                             </th>
                             <th>
+                                <i class="bi bi-flag"></i> Statut
+                            </th>
+                            <th>
                                 <i class="bi bi-calendar"></i> Date
                             </th>
                             <th class="text-end">Actions</th>
@@ -58,6 +69,16 @@
                                     <span class="fw-semibold">@item.Sujet</span>
                                 </td>
                                 <td>
+                                    @if (item.Statut == "Traité")
+                                    {
+                                        <span class="badge bg-success">Traité</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-warning text-dark">Nouveau</span>
+                                    }
+                                </td>
+                                <td>
                                     <small class="text-muted">
                                         @item.DateCreation.ToString("dd/MM/yyyy HH:mm")
                                     </small>
@@ -70,6 +91,15 @@
                                         <a asp-action="Reply" asp-route-id="@item.Id" class="btn btn-sm btn-success">
                                             <i class="bi bi-reply"></i> Répondre
                                         </a>
+                                        @if (item.Statut != "Traité")
+                                        {
+                                            <form asp-action="MarkTreated" asp-route-id="@item.Id" method="post" class="d-inline">
+                                                @Html.AntiForgeryToken()
+                                                <button type="submit" class="btn btn-sm btn-outline-primary">
+                                                    Traiter
+                                                </button>
+                                            </form>
+                                        }
                                         <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">
                                             <i class="bi bi-trash"></i>
                                         </a>

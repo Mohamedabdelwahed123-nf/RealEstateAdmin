@@ -11,7 +11,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/RealEstateAdmin.styles.css" asp-append-version="true" />
 </head>
@@ -50,11 +50,17 @@
                                 <li class="nav-item">
                                     <a class="nav-link" asp-controller="Message" asp-action="Index">
                                         <i class="bi bi-envelope"></i> Messages
+                                        @await Component.InvokeAsync("NewMessagesBadge")
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" asp-controller="Account" asp-action="ManageRoles">
                                         <i class="bi bi-shield-check"></i> Rôles
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="AuditLog" asp-action="Index">
+                                        <i class="bi bi-clock-history"></i> Historique
                                     </a>
                                 </li>
                             }
@@ -72,11 +78,14 @@
                                 <i class="bi bi-shop"></i> Shop
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Message" asp-action="Create">
-                                <i class="bi bi-chat-dots"></i> Contact
-                            </a>
-                        </li>
+                        @if (!User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Message" asp-action="Create">
+                                    <i class="bi bi-chat-dots"></i> Contact
+                                </a>
+                            </li>
+                        }
                     </ul>
                     <ul class="navbar-nav">
                         @if (User.Identity?.IsAuthenticated == true)
