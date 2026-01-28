@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\GAMING ASUS\\RealEstateAdmin\\RealEstateAdmin.csproj": {}
+    "C:\\Users\\victus\\Desktop\\projet1\\RealEstateAdmin\\RealEstateAdmin.csproj": {}
   },
   "projects": {
-    "C:\\Users\\GAMING ASUS\\RealEstateAdmin\\RealEstateAdmin.csproj": {
+    "C:\\Users\\victus\\Desktop\\projet1\\RealEstateAdmin\\RealEstateAdmin.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\GAMING ASUS\\RealEstateAdmin\\RealEstateAdmin.csproj",
+        "projectUniqueName": "C:\\Users\\victus\\Desktop\\projet1\\RealEstateAdmin\\RealEstateAdmin.csproj",
         "projectName": "RealEstateAdmin",
-        "projectPath": "C:\\Users\\GAMING ASUS\\RealEstateAdmin\\RealEstateAdmin.csproj",
-        "packagesPath": "C:\\Users\\GAMING ASUS\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\GAMING ASUS\\RealEstateAdmin\\obj\\",
+        "projectPath": "C:\\Users\\victus\\Desktop\\projet1\\RealEstateAdmin\\RealEstateAdmin.csproj",
+        "packagesPath": "C:\\Users\\victus\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\victus\\Desktop\\projet1\\RealEstateAdmin\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\GAMING ASUS\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\victus\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
