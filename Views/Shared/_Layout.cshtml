@@ -35,13 +35,13 @@
                                     <i class="bi bi-speedometer2"></i> Dashboard
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" asp-controller="BienImmobilier" asp-action="Index">
-                                    <i class="bi bi-house-door"></i> Biens immobiliers
-                                </a>
-                            </li>
                             @if (User.IsInRole("Admin"))
                             {
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="BienImmobilier" asp-action="Index">
+                                        <i class="bi bi-house-door"></i> Biens immobiliers
+                                    </a>
+                                </li>
                                 <li class="nav-item">
                                     <a class="nav-link" asp-controller="Utilisateur" asp-action="Index">
                                         <i class="bi bi-people"></i> Utilisateurs
@@ -58,7 +58,20 @@
                                     </a>
                                 </li>
                             }
+                            else if (User.Identity.IsAuthenticated)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="BienImmobilier" asp-action="Index">
+                                        <i class="bi bi-house-door"></i> Mes biens immobiliers
+                                    </a>
+                                </li>
+                            }
                         }
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Shop" asp-action="Index">
+                                <i class="bi bi-shop"></i> Shop
+                            </a>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="Message" asp-action="Create">
                                 <i class="bi bi-chat-dots"></i> Contact

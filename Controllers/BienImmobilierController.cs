@@ -25,7 +25,7 @@ namespace RealEstateAdmin.Controllers
             var currentUser = await _userManager.GetUserAsync(User);
             var isAdmin = User.IsInRole("Admin");
             
-            var biens = _context.Biens.AsQueryable();
+            var biens = _context.Biens.Include(b => b.User).AsQueryable();
 
             // Filtrer par utilisateur si ce n'est pas un admin
             if (!isAdmin && currentUser != null)
@@ -92,7 +92,7 @@ namespace RealEstateAdmin.Controllers
         // POST: BienImmobilier/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Titre,Description,Prix,Adresse,Surface,NombrePieces,ImageUrl")] BienImmobilier bienImmobilier)
+        public async Task<IActionResult> Create([Bind("Id,Titre,Description,Prix,Adresse,Surface,NombrePieces,ImageUrl,TypeTransaction")] BienImmobilier bienImmobilier)
         {
             if (ModelState.IsValid)
             {
@@ -104,14 +104,15 @@ namespace RealEstateAdmin.Controllers
                 }
                 
                 // Vérifier que l'utilisateur existe bien dans la base de données
-                var userExists = await _userManager.FindByIdAsync(currentUser.Id);
-                if (userExists == null)
+                // Use _context.Users directly to ensure it's tracked by the context we are saving to
+                var dbUser = await _context.Users.FirstOrDefaultAsync(u => u.Id == currentUser.Id);
+                if (dbUser == null)
                 {
-                    ModelState.AddModelError(string.Empty, "Erreur: Utilisateur introuvable.");
+                    ModelState.AddModelError(string.Empty, "Erreur: Utilisateur introuvable dans la base de données.");
                     return View(bienImmobilier);
                 }
                 
-                bienImmobilier.UserId = currentUser.Id;
+                bienImmobilier.UserId = dbUser.Id;
                 _context.Add(bienImmobilier);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -147,7 +148,7 @@ namespace RealEstateAdmin.Controllers
         // POST: BienImmobilier/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Titre,Description,Prix,Adresse,Surface,NombrePieces,ImageUrl")] BienImmobilier bienImmobilier)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Titre,Description,Prix,Adresse,Surface,NombrePieces,ImageUrl,TypeTransaction")] BienImmobilier bienImmobilier)
         {
             if (id != bienImmobilier.Id)
             {

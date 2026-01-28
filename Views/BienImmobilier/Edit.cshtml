@@ -23,6 +23,14 @@
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="mb-3">
+                <label asp-for="TypeTransaction" class="form-label"></label>
+                <select asp-for="TypeTransaction" class="form-select">
+                    <option value="A Vendre">A Vendre</option>
+                    <option value="A Louer">A Louer</option>
+                </select>
+                <span asp-validation-for="TypeTransaction" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
                 <label asp-for="Prix" class="form-label"></label>
                 <input asp-for="Prix" class="form-control" type="number" step="0.01" placeholder="Prix en DT" />
                 <span asp-validation-for="Prix" class="text-danger"></span>

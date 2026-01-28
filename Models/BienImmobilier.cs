@@ -43,6 +43,10 @@ namespace RealEstateAdmin.Models
         [Url(ErrorMessage = "Veuillez entrer une URL valide")]
         [StringLength(1000, ErrorMessage = "L'URL ne peut pas dépasser 1000 caractères")]
         public string? ImageUrl { get; set; }
+
+        [Required(ErrorMessage = "Le type de transaction est obligatoire")]
+        [Display(Name = "Type de transaction")]
+        public string TypeTransaction { get; set; } = "A Vendre"; // "A Vendre" ou "A Louer"
     }
 }
 

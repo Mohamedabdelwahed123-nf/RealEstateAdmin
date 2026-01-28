@@ -182,47 +182,7 @@ using (var scope = app.Services.CreateScope())
         await dbContext.SaveChangesAsync();
     }
     
-    // Mise à jour des adresses françaises vers tunisiennes pour les biens existants
-    var biensAvecAdressesFrancaises = await dbContext.Biens
-        .Where(b => b.Adresse != null && (
-            b.Adresse.Contains("Nice") || 
-            b.Adresse.Contains("Marseille") || 
-            b.Adresse.Contains("Provence") || 
-            b.Adresse.Contains("Cannes") || 
-            b.Adresse.Contains("Monaco") || 
-            b.Adresse.Contains("Lyon") || 
-            b.Adresse.Contains("Paris") || 
-            b.Adresse.Contains("Bordeaux")))
-        .ToListAsync();
-    
-    if (biensAvecAdressesFrancaises.Any())
-    {
-        var adressesTunisiennes = new Dictionary<string, string>
-        {
-            { "Nice", "Avenue Habib Bourguiba, La Marsa, Tunis" },
-            { "Marseille", "Avenue de la République, Sfax" },
-            { "Provence", "Route de Zaghouan, Bizerte" },
-            { "Cannes", "Corniche de Sousse, Sousse" },
-            { "Monaco", "Avenue Habib Bourguiba, Hammamet" },
-            { "Lyon", "Rue de la Kasbah, Tunis" },
-            { "Paris", "Avenue Mohamed V, Monastir" },
-            { "Bordeaux", "Cité Ennasr, Ariana, Tunis" }
-        };
-        
-        foreach (var bien in biensAvecAdressesFrancaises)
-        {
-            foreach (var ville in adressesTunisiennes.Keys)
-            {
-                if (bien.Adresse != null && bien.Adresse.Contains(ville))
-                {
-                    bien.Adresse = adressesTunisiennes[ville];
-                    break;
-                }
-            }
-        }
-        
-        await dbContext.SaveChangesAsync();
-    }
+
 }
 
 // Configure the HTTP request pipeline.

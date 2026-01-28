@@ -13,10 +13,18 @@ namespace RealEstateAdmin.Data
         public DbSet<BienImmobilier> Biens { get; set; }
         public DbSet<Utilisateur> Utilisateurs { get; set; }
         public DbSet<Message> Messages { get; set; }
+        // Add Users DbSet to allow FK relationships
+        public DbSet<ApplicationUser> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            // Configuration pour ApplicationUser (minimal config for FK)
+            modelBuilder.Entity<ApplicationUser>(entity =>
+            {
+                entity.ToTable("AspNetUsers"); // Ensure it maps to the correct Identity table
+            });
 
             // Configuration pour BienImmobilier
             modelBuilder.Entity<BienImmobilier>(entity =>
@@ -29,8 +37,7 @@ namespace RealEstateAdmin.Data
                 entity.Property(e => e.ImageUrl).HasMaxLength(1000);
                 entity.Property(e => e.UserId).HasMaxLength(450);
                 
-                // Relation avec ApplicationUser (optionnelle)
-                // La relation est configurée sans contrainte stricte car ApplicationUser est dans un autre DbContext
+                // Relation avec ApplicationUser
                 entity.HasOne(e => e.User)
                     .WithMany()
                     .HasForeignKey(e => e.UserId)

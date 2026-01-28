@@ -9,115 +9,119 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = RealEstateAdmin
 build_property.RootNamespace = RealEstateAdmin
-build_property.ProjectDir = c:\Users\GAMING ASUS\RealEstateAdmin\
+build_property.ProjectDir = C:\Users\GAMING ASUS\RealEstateAdmin\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = c:\Users\GAMING ASUS\RealEstateAdmin
+build_property.MSBuildProjectDirectory = C:\Users\GAMING ASUS\RealEstateAdmin
 build_property._RazorSourceGeneratorDebug = 
 
-[c:/Users/GAMING ASUS/RealEstateAdmin/Views/Account/Login.cshtml]
+[C:/Users/GAMING ASUS/RealEstateAdmin/Views/Account/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxMb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/GAMING ASUS/RealEstateAdmin/Views/Account/ManageRoles.cshtml]
+[C:/Users/GAMING ASUS/RealEstateAdmin/Views/Account/ManageRoles.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxNYW5hZ2VSb2xlcy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/GAMING ASUS/RealEstateAdmin/Views/Account/Register.cshtml]
+[C:/Users/GAMING ASUS/RealEstateAdmin/Views/Account/Register.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxSZWdpc3Rlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/GAMING ASUS/RealEstateAdmin/Views/BienImmobilier/Create.cshtml]
+[C:/Users/GAMING ASUS/RealEstateAdmin/Views/BienImmobilier/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmllbkltbW9iaWxpZXJcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/GAMING ASUS/RealEstateAdmin/Views/BienImmobilier/Delete.cshtml]
+[C:/Users/GAMING ASUS/RealEstateAdmin/Views/BienImmobilier/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmllbkltbW9iaWxpZXJcRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/GAMING ASUS/RealEstateAdmin/Views/BienImmobilier/Details.cshtml]
+[C:/Users/GAMING ASUS/RealEstateAdmin/Views/BienImmobilier/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmllbkltbW9iaWxpZXJcRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/GAMING ASUS/RealEstateAdmin/Views/BienImmobilier/Edit.cshtml]
+[C:/Users/GAMING ASUS/RealEstateAdmin/Views/BienImmobilier/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmllbkltbW9iaWxpZXJcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/GAMING ASUS/RealEstateAdmin/Views/BienImmobilier/Index.cshtml]
+[C:/Users/GAMING ASUS/RealEstateAdmin/Views/BienImmobilier/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmllbkltbW9iaWxpZXJcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/GAMING ASUS/RealEstateAdmin/Views/Dashboard/Index.cshtml]
+[C:/Users/GAMING ASUS/RealEstateAdmin/Views/Dashboard/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGFzaGJvYXJkXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/GAMING ASUS/RealEstateAdmin/Views/Home/Index.cshtml]
+[C:/Users/GAMING ASUS/RealEstateAdmin/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/GAMING ASUS/RealEstateAdmin/Views/Home/Privacy.cshtml]
+[C:/Users/GAMING ASUS/RealEstateAdmin/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/GAMING ASUS/RealEstateAdmin/Views/Message/Create.cshtml]
+[C:/Users/GAMING ASUS/RealEstateAdmin/Views/Message/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVzc2FnZVxDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/GAMING ASUS/RealEstateAdmin/Views/Message/Delete.cshtml]
+[C:/Users/GAMING ASUS/RealEstateAdmin/Views/Message/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVzc2FnZVxEZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/GAMING ASUS/RealEstateAdmin/Views/Message/Details.cshtml]
+[C:/Users/GAMING ASUS/RealEstateAdmin/Views/Message/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVzc2FnZVxEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/GAMING ASUS/RealEstateAdmin/Views/Message/Index.cshtml]
+[C:/Users/GAMING ASUS/RealEstateAdmin/Views/Message/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVzc2FnZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/GAMING ASUS/RealEstateAdmin/Views/Message/Reply.cshtml]
+[C:/Users/GAMING ASUS/RealEstateAdmin/Views/Message/Reply.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVzc2FnZVxSZXBseS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/GAMING ASUS/RealEstateAdmin/Views/Shared/Error.cshtml]
+[C:/Users/GAMING ASUS/RealEstateAdmin/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/GAMING ASUS/RealEstateAdmin/Views/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Users/GAMING ASUS/RealEstateAdmin/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/GAMING ASUS/RealEstateAdmin/Views/Utilisateur/Create.cshtml]
+[C:/Users/GAMING ASUS/RealEstateAdmin/Views/Shop/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hvcFxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/GAMING ASUS/RealEstateAdmin/Views/Utilisateur/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXRpbGlzYXRldXJcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/GAMING ASUS/RealEstateAdmin/Views/Utilisateur/Delete.cshtml]
+[C:/Users/GAMING ASUS/RealEstateAdmin/Views/Utilisateur/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXRpbGlzYXRldXJcRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/GAMING ASUS/RealEstateAdmin/Views/Utilisateur/Details.cshtml]
+[C:/Users/GAMING ASUS/RealEstateAdmin/Views/Utilisateur/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXRpbGlzYXRldXJcRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/GAMING ASUS/RealEstateAdmin/Views/Utilisateur/Edit.cshtml]
+[C:/Users/GAMING ASUS/RealEstateAdmin/Views/Utilisateur/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXRpbGlzYXRldXJcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/GAMING ASUS/RealEstateAdmin/Views/Utilisateur/Index.cshtml]
+[C:/Users/GAMING ASUS/RealEstateAdmin/Views/Utilisateur/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXRpbGlzYXRldXJcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/GAMING ASUS/RealEstateAdmin/Views/_ViewImports.cshtml]
+[C:/Users/GAMING ASUS/RealEstateAdmin/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/GAMING ASUS/RealEstateAdmin/Views/_ViewStart.cshtml]
+[C:/Users/GAMING ASUS/RealEstateAdmin/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/GAMING ASUS/RealEstateAdmin/Views/Shared/_Layout.cshtml]
+[C:/Users/GAMING ASUS/RealEstateAdmin/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-53uskdolhs
