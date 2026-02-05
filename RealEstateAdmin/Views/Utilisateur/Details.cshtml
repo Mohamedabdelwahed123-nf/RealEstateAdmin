@@ -1,0 +1,94 @@
+@model RealEstateAdmin.Models.UserRoleViewModel
+
+@{
+    ViewData["Title"] = "Détails de l'utilisateur";
+}
+
+<div class="container">
+    <h1 class="mb-4 text-gradient">
+        <i class="bi bi-person"></i> Détails de l'utilisateur
+    </h1>
+
+    <div class="card">
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-3">Nom</dt>
+                <dd class="col-sm-9">@Model.UserName</dd>
+
+                <dt class="col-sm-3">Email</dt>
+                <dd class="col-sm-9">@Model.Email</dd>
+
+                <dt class="col-sm-3">Rôle</dt>
+                <dd class="col-sm-9">
+                    <span class="badge bg-@(Model.CurrentRole == "Admin" ? "danger" : "primary")">
+                        @Model.CurrentRole
+                    </span>
+                </dd>
+
+                <dt class="col-sm-3">Biens</dt>
+                <dd class="col-sm-9">
+                    <span class="badge bg-secondary me-1">Total: @Model.BienTotal</span>
+                    <span class="badge bg-success me-1">Publiés: @Model.BienPublies</span>
+                    <span class="badge bg-warning text-dark me-1">En attente: @Model.BienEnAttente</span>
+                    <span class="badge bg-info text-dark">Vendus: @Model.BienVendus</span>
+                </dd>
+            </dl>
+        </div>
+    </div>
+
+    <div class="card mt-4">
+        <div class="card-header">
+            <h5 class="mb-0">
+                <i class="bi bi-house-door"></i> Derniers biens
+            </h5>
+        </div>
+        <div class="table-responsive">
+            <table class="table mb-0">
+                <thead>
+                    <tr>
+                        <th>Titre</th>
+                        <th class="text-end">Prix</th>
+                        <th>Statut</th>
+                        <th>Publication</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.Biens.Any())
+                    {
+                        @foreach (var bien in Model.Biens)
+                        {
+                            <tr>
+                                <td>@bien.Titre</td>
+                                <td class="text-end">@bien.Prix.ToString("N2") DT</td>
+                                <td>@bien.TypeTransaction</td>
+                                <td>@bien.PublicationStatus</td>
+                                <td class="text-end">
+                                    <a asp-controller="BienImmobilier" asp-action="Details" asp-route-id="@bien.Id" class="btn btn-sm btn-outline-primary">
+                                        Voir
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="5" class="text-center text-muted py-4">Aucun bien trouvé</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <a asp-controller="Account" asp-action="ManageRoles" class="btn btn-primary">
+            <i class="bi bi-shield-check"></i> Gérer les rôles
+        </a>
+        <a asp-action="Index" class="btn btn-secondary">
+            <i class="bi bi-arrow-left"></i> Retour à la liste
+        </a>
+    </div>
+</div>
+
