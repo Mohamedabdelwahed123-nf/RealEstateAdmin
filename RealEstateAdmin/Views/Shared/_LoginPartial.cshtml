@@ -1,0 +1,19 @@
+@using Microsoft.AspNetCore.Identity
+@using RealEstateAdmin.Models
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <form asp-controller="Account" asp-action="Logout" method="post" class="d-inline">
+        <button type="submit" class="btn btn-sm btn-outline-light">
+            <i class="bi bi-box-arrow-right"></i> Déconnexion
+        </button>
+    </form>
+}
+else
+{
+    <a class="btn btn-sm btn-outline-light" asp-controller="Account" asp-action="Login">
+        <i class="bi bi-box-arrow-in-right"></i> Connexion
+    </a>
+}

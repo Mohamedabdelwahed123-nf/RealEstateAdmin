@@ -77,6 +77,18 @@ namespace RealEstateAdmin.Controllers
             }
 
             var roles = await _userManager.GetRolesAsync(user);
+            var bienStats = await _context.Biens
+                .Where(b => b.UserId == user.Id)
+                .GroupBy(b => b.UserId!)
+                .Select(g => new
+                {
+                    Total = g.Count(),
+                    Publies = g.Count(b => b.PublicationStatus == "Publié"),
+                    EnAttente = g.Count(b => b.PublicationStatus == "En attente"),
+                    Vendus = g.Count(b => b.TypeTransaction == "Acheté")
+                })
+                .FirstOrDefaultAsync();
+
             var biens = await _context.Biens
                 .Where(b => b.UserId == user.Id)
                 .OrderByDescending(b => b.Id)
@@ -89,10 +101,10 @@ namespace RealEstateAdmin.Controllers
                 UserName = user.Nom ?? user.UserName ?? "",
                 Email = user.Email ?? "",
                 CurrentRole = roles.FirstOrDefault() ?? "Aucun",
-                BienTotal = biens.Count,
-                BienPublies = biens.Count(b => b.PublicationStatus == "Publié"),
-                BienEnAttente = biens.Count(b => b.PublicationStatus == "En attente"),
-                BienVendus = biens.Count(b => b.TypeTransaction == "Acheté"),
+                BienTotal = bienStats?.Total ?? 0,
+                BienPublies = bienStats?.Publies ?? 0,
+                BienEnAttente = bienStats?.EnAttente ?? 0,
+                BienVendus = bienStats?.Vendus ?? 0,
                 Biens = biens.Select(b => new UserBienItemViewModel
                 {
                     Id = b.Id,
