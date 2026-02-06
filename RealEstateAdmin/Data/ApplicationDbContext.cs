@@ -12,7 +12,6 @@ namespace RealEstateAdmin.Data
 
         public DbSet<BienImmobilier> Biens { get; set; }
         public DbSet<BienImage> BienImages { get; set; }
-        public DbSet<Utilisateur> Utilisateurs { get; set; }
         public DbSet<Message> Messages { get; set; }
         public DbSet<AuditLog> AuditLogs { get; set; }
         public DbSet<Sale> Sales { get; set; }
@@ -59,16 +58,6 @@ namespace RealEstateAdmin.Data
                     .WithMany(b => b.Images)
                     .HasForeignKey(e => e.BienImmobilierId)
                     .OnDelete(DeleteBehavior.Cascade);
-            });
-
-            // Configuration pour Utilisateur
-            modelBuilder.Entity<Utilisateur>(entity =>
-            {
-                entity.HasKey(e => e.Id);
-                entity.Property(e => e.Nom).IsRequired().HasMaxLength(100);
-                entity.Property(e => e.Email).IsRequired().HasMaxLength(200);
-                entity.Property(e => e.MotDePasse).IsRequired().HasMaxLength(100);
-                entity.HasIndex(e => e.Email).IsUnique();
             });
 
             // Configuration pour Message
